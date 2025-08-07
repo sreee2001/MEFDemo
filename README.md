@@ -1,13 +1,17 @@
-# Managed Extensibility Framework (MEF) Sample
+<details>
+<summary>
+     
+## Managed Extensibility Framework (MEF) Sample
 
 This topic provides an overview of the Managed Extensibility Framework that was introduced in the .NET Framework 4.
 
-## What is MEF?
+### What is MEF?
 
 The Managed Extensibility Framework or MEF is a library for creating lightweight, extensible applications. It allows application developers to discover and use extensions with no configuration required. It also lets extension developers easily encapsulate code and avoid fragile hard dependencies. MEF not only allows extensions to be reused within applications, but across applications as well.
 
+</summary>
 
-## The Problem of Extensibility
+### The Problem of Extensibility
 
 Imagine that you are the architect of a large application that must provide support for extensibility. Your application has to include a potentially large number of smaller components, and is responsible for creating and running them.
 
@@ -21,8 +25,7 @@ In addition, components are incapable of communicating with one another, except 
 
 Finally, the component developers must accept a hard dependency on what assembly contains the interface they implement. This makes it difficult for a component to be used in more than one application, and can also create problems when you create a test framework for components.
 
-
-## What MEF Provides
+### What MEF Provides
 
 Instead of this explicit registration of available components, MEF provides a way to discover them implicitly, via composition. A MEF component, called a part, declaratively specifies both its dependencies (known as imports) and what capabilities (known as exports) it makes available. When a part is created, the MEF composition engine satisfies its imports with what is available from other parts.
 
@@ -34,34 +37,54 @@ Because the MEF model requires no hard dependency on a particular application as
 
 An extensible application written by using MEF declares an import that can be filled by extension components, and may also declare exports in order to expose application services to extensions. Each extension component declares an export, and may also declare imports. In this way, extension components themselves are automatically extensible.
 
-
-## Where Is MEF Available?
+### Where Is MEF Available?
 
 MEF is an integral part of the .NET Framework 4, and is available wherever the .NET Framework is used. You can use MEF in your client applications, whether they use Windows Forms, WPF, or any other technology, or in server applications that use ASP.NET.
 
-
-## MEF and MAF
+### MEF and MAF
 Previous versions of the .NET Framework introduced the Managed Add-in Framework (MAF), designed to allow applications to isolate and manage extensions. The focus of MAF is slightly higher-level than MEF, concentrating on extension isolation and assembly loading and unloading, while MEF's focus is on discoverability, extensibility, and portability. The two frameworks interoperate smoothly, and a single application can take advantage of both.
+</details>
 
-
-## MEFDemo: An Example Application
+### MEFDemo: An Example Application
 The simplest way to see what MEF can do is to build a simple MEF application.
 
-
-## Compile and Run
+### Compile and Run
 
 To compile and run this project, you will need to specify the path to the Extensions folder.
 1. Open the main code file (Program.cs).
 2. In the constructor, specify the path to the Extensions folder on your local computer.
-
+   
      `var provider = new ExtensibilityProvider("Project Directory" + \\Extensions")`
-3. We need to get Models.dll and Services.dll to be in this directory upon Building. This can be acheived in multiple ways
+4. We need to get Models.dll and Services.dll to be in this directory upon Building. This can be acheived in multiple ways
    - Manually copying the files for deployment
    - Changing the build output paths to the corresponding bin directory ( this is what I have used )
 
+### Extending an Interface and dynamically adding to Deployment
 
+Here I added another implementation of IEmployeeService for another company(Walmart). This is done in a new class library
 
-## Conclusion
+     namespace WalmartServices
+     {
+         [Export(typeof(IEmployeeService))]
+         [ExportMetadata("CompanyName", "Walmart")]
+         public class WalmartEmployeeService: EmployeeService { }
+     }
+
+By Deploying the new library to the Extensions Dir, it is automatically picked up without changing original code, and the Program.cs will automatically pick up all instances of IEmployeeService
+
+     [ImportMany]
+     public IEnumerable<Lazy<IEmployeeService, IEmployeeServiceMetadata>> EmployeeServices { get; private set; }
+
+To use it 
+
+     // get an instance of IEmployeeService
+     var allEmployeeServices  = provider.EmployeeServices;
+     foreach (var employeeService in allEmployeeServices)
+     {
+          Console.WriteLine($"Employee Service: {employeeService.Metadata.CompanyName}");
+     }
+
+### Conclusion
 
 This topic covered the basic concepts of MEF.
 
