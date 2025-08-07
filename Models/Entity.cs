@@ -1,5 +1,4 @@
 ﻿using Interfaces.Entities;
-using System.ComponentModel.Composition;
 
 namespace Models
 {

@@ -19,29 +19,30 @@ namespace FirstMefSample
 
             // set properties
             Console.WriteLine($"Total Employee Services Found: {allEmployeeServices.Count()}");
+            Console.WriteLine();
+
             Console.WriteLine("List of Employee Services");
             foreach (var employeeService in allEmployeeServices)
             {
                 Console.WriteLine($"Employee Service: {employeeService.Metadata.CompanyName}");
+                Console.WriteLine();
+                // add employees to the Employee Service
+                Console.WriteLine($"Adding Two Employees to {employeeService.Metadata.CompanyName} Employee Service...");
+
+                employeeService.Value.AddEmployee(1, $"{employeeService.Metadata.CompanyName} Employee One");
+                employeeService.Value.AddEmployee(2, $"{employeeService.Metadata.CompanyName} Employee Two");
+                
+                Console.WriteLine();
+
+                // Fetch and print all employees from Employee Service
+                Console.WriteLine($"Fetching all employees from {employeeService.Metadata.CompanyName} Employee Service");
+                // print the entity 
+                foreach (var entity in employeeService.Value.GetAllEmployees())
+                {
+                    Console.WriteLine(entity.ToString());
+                }
             }
             Console.WriteLine();
-
-            // Get Starbucks Employee Service
-            var starBucksEmployeeService = allEmployeeServices.Where(x => x.Metadata.CompanyName == "Starbucks").FirstOrDefault();
-
-            // add employees to the Starbucks Employee Service
-            Console.WriteLine("Adding Employees to Starbucks Employee Service...");
-
-            starBucksEmployeeService.Value.AddEmployee(1, "Employee One");
-            starBucksEmployeeService.Value.AddEmployee(2, "Employee Two");
-
-            // Fetch and print all employees from Starbucks Employee Service
-            Console.WriteLine("Fetching all employees from Starbucks Employee Service");
-            // print the entity 
-            foreach (var entity in starBucksEmployeeService.Value.GetAllEmployees())
-            {
-                Console.WriteLine(entity.ToString());
-            }
         }
 
 

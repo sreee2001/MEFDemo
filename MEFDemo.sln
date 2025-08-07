@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{538D2A4D-269A-451A-B136-95020B75311A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalmartServices", "WalmartServices\WalmartServices.csproj", "{DD07500F-48B2-4162-80DA-1E87BF102D7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{538D2A4D-269A-451A-B136-95020B75311A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{538D2A4D-269A-451A-B136-95020B75311A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{538D2A4D-269A-451A-B136-95020B75311A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD07500F-48B2-4162-80DA-1E87BF102D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD07500F-48B2-4162-80DA-1E87BF102D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD07500F-48B2-4162-80DA-1E87BF102D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD07500F-48B2-4162-80DA-1E87BF102D7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
