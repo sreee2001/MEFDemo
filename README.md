@@ -44,8 +44,8 @@ MEF is an integral part of the .NET Framework 4, and is available wherever the .
 Previous versions of the .NET Framework introduced the Managed Add-in Framework (MAF), designed to allow applications to isolate and manage extensions. The focus of MAF is slightly higher-level than MEF, concentrating on extension isolation and assembly loading and unloading, while MEF's focus is on discoverability, extensibility, and portability. The two frameworks interoperate smoothly, and a single application can take advantage of both.
 
 
-## SimpleCalculator: An Example Application
-The simplest way to see what MEF can do is to build a simple MEF application.  
+## MEFDemo: An Example Application
+The simplest way to see what MEF can do is to build a simple MEF application.
 
 
 ## Compile and Run
@@ -55,6 +55,9 @@ To compile and run this project, you will need to specify the path to the Extens
 2. In the constructor, specify the path to the Extensions folder on your local computer.
 
      `var provider = new ExtensibilityProvider("Project Directory" + \\Extensions")`
+3. We need to get Models.dll and Services.dll to be in this directory upon Building. This can be acheived in multiple ways
+   - Manually copying the files for deployment
+   - Changing the build output paths to the corresponding bin directory ( this is what I have used )
 
 
 
