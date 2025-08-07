@@ -1,6 +1,8 @@
 ﻿using Interfaces.Entities;
 using Interfaces.Services;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 
@@ -8,10 +10,14 @@ namespace FirstMefSample
 {
     public class ExtensibilityProvider
     {
-        [Import(typeof(IEmployeeService))]
-        private IEmployeeService _employeeService; // Note: MEF Binding only supports field injection
+        //[Import(typeof(IEmployeeService))]
+        //private IEmployeeService _employeeService; // Note: MEF Binding only supports field injection
 
-        public IEmployeeService StarbucksEmployeeService => _employeeService;
+        [ImportMany]
+        IEnumerable<Lazy<IEmployeeService, ICompanyData>> _employeeServices; // Note: MEF Binding only supports field injection
+
+
+        public IEnumerable<Lazy<IEmployeeService, ICompanyData>> EmployeeServices => _employeeServices;
 
         public ExtensibilityProvider()
         {

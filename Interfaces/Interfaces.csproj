@@ -42,6 +42,7 @@
     <Compile Include="Entities\IBaseEntity.cs" />
     <Compile Include="Entities\IHaveId.cs" />
     <Compile Include="Entities\IHaveName.cs" />
+    <Compile Include="Services\ICompanyData.cs" />
     <Compile Include="Services\IEmployeeService.cs" />
   </ItemGroup>
   <ItemGroup />
