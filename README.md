@@ -53,8 +53,9 @@ The simplest way to see what MEF can do is to build a simple MEF application.
 To compile and run this project, you will need to specify the path to the Extensions folder.
 1. Open the main code file (Program.cs).
 2. In the constructor, specify the path to the Extensions folder on your local computer.
-   
-     `var provider = new ExtensibilityProvider("Project Directory" + \\Extensions")`
+````C#
+     var provider = new ExtensibilityProvider("Project Directory" + \\Extensions")
+````
 4. We need to get Models.dll and Services.dll to be in this directory upon Building. This can be acheived in multiple ways
    - Manually copying the files for deployment
    - Changing the build output paths to the corresponding bin directory ( this is what I have used )
@@ -63,26 +64,32 @@ To compile and run this project, you will need to specify the path to the Extens
 
 Here I added another implementation of IEmployeeService for another company(Walmart). This is done in a new class library
 
+````C#
      namespace WalmartServices
      {
          [Export(typeof(IEmployeeService))]
          [ExportMetadata("CompanyName", "Walmart")]
          public class WalmartEmployeeService: EmployeeService { }
      }
+````
 
 By Deploying the new library to the Extensions Dir, it is automatically picked up without changing original code, and the Program.cs will automatically pick up all instances of IEmployeeService
 
+````C#
      [ImportMany]
      public IEnumerable<Lazy<IEmployeeService, IEmployeeServiceMetadata>> EmployeeServices { get; private set; }
+````
 
 To use it 
 
+````C#
      // get an instance of IEmployeeService
      var allEmployeeServices  = provider.EmployeeServices;
      foreach (var employeeService in allEmployeeServices)
      {
           Console.WriteLine($"Employee Service: {employeeService.Metadata.CompanyName}");
      }
+````
 
 ### Conclusion
 
